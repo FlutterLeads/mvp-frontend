@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import logo from "../../assets/logo.png";
-import UserPool from "../Service/UserPool";
+import UserPool from "../../Service/UserPool";
+
 export default function SignUp({ navigation }) {
   const handleSignUpPress = () => {
     navigation.navigate("SignIn");
@@ -18,8 +19,8 @@ export default function SignUp({ navigation }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSignUp = () => {
-    event.preventDefault();
     UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) {
         console.error(err);
@@ -27,6 +28,7 @@ export default function SignUp({ navigation }) {
       console.log(data);
     });
   };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#e8ecf4" }}>
       <View style={styles.container}>
@@ -38,15 +40,12 @@ export default function SignUp({ navigation }) {
               style={styles.headerImg}
               source={logo}
             />
-
             <Text style={styles.title}>
               <Text style={{ textAlign: "center" }}>Sign Up {"\n"}</Text>
-
               <Text style={{ color: "#39838E", textAlign: "center" }}>
                 Interest Haven
               </Text>
             </Text>
-
             <Text style={styles.subtitle}>
               Get access to your portfolio and more
             </Text>
@@ -55,7 +54,6 @@ export default function SignUp({ navigation }) {
           <View style={styles.form}>
             <View style={styles.input}>
               <Text style={styles.inputLabel}>Email address</Text>
-
               <TextInput
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -64,16 +62,15 @@ export default function SignUp({ navigation }) {
                 placeholderTextColor='#6b7280'
                 style={styles.inputControl}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChangeText={(text) => setEmail(text)}
               />
             </View>
 
             <View style={styles.input}>
               <Text style={styles.inputLabel}>Password</Text>
-
               <TextInput
                 autoCorrect={false}
-                onChange={(e) => setPassword(e.target.value)}
+                onChangeText={(text) => setPassword(text)}
                 placeholder='********'
                 placeholderTextColor='#6b7280'
                 style={styles.inputControl}
@@ -83,7 +80,7 @@ export default function SignUp({ navigation }) {
             </View>
 
             <View style={styles.formAction}>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={handleSignUp}>
                 <View style={styles.btn}>
                   <Text style={styles.btnText}>Sign up</Text>
                 </View>
@@ -95,9 +92,7 @@ export default function SignUp({ navigation }) {
         </KeyboardAwareScrollView>
 
         <TouchableOpacity
-          onPress={() => {
-            handleSignUpPress();
-          }}
+          onPress={handleSignUpPress}
           style={{ marginTop: "auto" }}>
           <Text style={styles.formFooter}>
             Have an account?{" "}
